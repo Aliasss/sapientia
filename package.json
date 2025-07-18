@@ -1,7 +1,7 @@
 {
-  "name": "echo-sapientia",
+  "name": "sapientia",
   "version": "1.0.0",
-  "description": "Echo SAPIENTIA - A Tool for the Thinking Human",
+  "description": "SAPIENTIA - A Tool for the Thinking Human",
   "main": "index.html",
   "scripts": {
     "start": "serve",

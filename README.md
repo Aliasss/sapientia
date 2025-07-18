@@ -1,10 +1,10 @@
-# Echo SAPIENTIA
+# SAPIENTIA
 
 A Tool for the Thinking Human - A Scientia ad Sapientiam
 
 ## Overview
 
-Echo SAPIENTIA is a philosophical platform designed to stimulate deep thinking and personal philosophical exploration. The platform is structured around three core axes of thought:
+SAPIENTIA is a philosophical platform designed to stimulate deep thinking and personal philosophical exploration. The platform is structured around three core axes of thought:
 
 1. **Origin of Thought** - Presenting personal inner questions and ontological concerns
 2. **Depth of Thought** - Expanding insights from cosmic/spiritual perspectives
@@ -12,9 +12,9 @@ Echo SAPIENTIA is a philosophical platform designed to stimulate deep thinking a
 
 ## Features
 
-- Monthly philosophical themes with guided exploration
+- Three pillars of understanding: Self & Existence, Nature & Cosmos, Society & Future
 - Personal thought journal for recording and reflecting on ideas
-- Structured content based on Aiden's Philosophy, Rosicrucian concepts, and Common Sense Renewed principles
+- Structured content based on universal principles and ancient wisdom
 
 ## Development
 
