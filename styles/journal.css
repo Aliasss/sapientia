@@ -1,0 +1,157 @@
+/* Journal Modal Styles */
+.journal-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.journal-modal.active {
+    display: block;
+    opacity: 1;
+}
+
+.journal-container {
+    position: relative;
+    background-color: #1a1a24;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.journal-modal.active .journal-container {
+    transform: translateY(0);
+}
+
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #2a2a35;
+}
+
+.journal-header h2 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.journal-close {
+    background: none;
+    border: none;
+    color: #a9a9b3;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.journal-close:hover {
+    color: #fff;
+}
+
+.journal-content {
+    margin-bottom: 20px;
+}
+
+.journal-prompt-text {
+    font-style: italic;
+    color: #a9a9b3;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 3px solid #4a4a5a;
+}
+
+.journal-textarea {
+    width: 100%;
+    min-height: 200px;
+    background-color: #0f0f13;
+    border: 1px solid #2a2a35;
+    border-radius: 4px;
+    padding: 15px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+.journal-textarea:focus {
+    outline: none;
+    border-color: #4a4a5a;
+}
+
+.journal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.journal-history {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a35;
+}
+
+.journal-history h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.journal-entry {
+    background-color: #0f0f13;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.journal-entry-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #a9a9b3;
+}
+
+.journal-entry-content {
+    line-height: 1.6;
+}
+
+.journal-empty {
+    color: #a9a9b3;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .journal-container {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+    
+    .journal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .journal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .journal-actions button {
+        width: 100%;
+    }
+} 

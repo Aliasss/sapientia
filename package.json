@@ -1,0 +1,21 @@
+{
+  "name": "echo-sapientia",
+  "version": "1.0.0",
+  "description": "Echo SAPIENTIA - A Tool for the Thinking Human",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": [
+    "philosophy",
+    "thought",
+    "wisdom",
+    "sapientia"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+} 

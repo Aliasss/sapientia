@@ -1,0 +1,238 @@
+/* Subscription Modal Styles */
+.subscription-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.subscription-modal.active {
+    display: block;
+    opacity: 1;
+}
+
+.subscription-container {
+    position: relative;
+    background-color: #1a1a24;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.subscription-modal.active .subscription-container {
+    transform: translateY(0);
+}
+
+.subscription-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #2a2a35;
+}
+
+.subscription-header h2 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.subscription-close {
+    background: none;
+    border: none;
+    color: #a9a9b3;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.subscription-close:hover {
+    color: #fff;
+}
+
+.subscription-content {
+    margin-bottom: 20px;
+}
+
+.subscription-description {
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.subscription-plans {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.subscription-plan {
+    flex: 1;
+    background-color: #0f0f13;
+    border: 1px solid #2a2a35;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.subscription-plan:hover {
+    border-color: #4a4a5a;
+    transform: translateY(-5px);
+}
+
+.subscription-plan.selected {
+    border-color: #6a6a8a;
+    background-color: #1f1f2a;
+}
+
+.plan-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.plan-price {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.plan-duration {
+    color: #a9a9b3;
+    margin-bottom: 15px;
+}
+
+.plan-features {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.plan-features li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.plan-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #6a6a8a;
+}
+
+.subscription-form {
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    background-color: #0f0f13;
+    border: 1px solid #2a2a35;
+    border-radius: 4px;
+    padding: 12px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4a4a5a;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.subscription-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subscription-terms {
+    font-size: 0.9rem;
+    color: #a9a9b3;
+}
+
+.subscription-terms a {
+    color: #a9a9b3;
+    text-decoration: underline;
+}
+
+.subscription-success {
+    display: none;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.subscription-success.active {
+    display: block;
+}
+
+.success-icon {
+    font-size: 3rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .subscription-container {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+    
+    .subscription-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .subscription-plans {
+        flex-direction: column;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .subscription-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .subscription-actions button {
+        width: 100%;
+    }
+    
+    .subscription-terms {
+        text-align: center;
+    }
+} 
