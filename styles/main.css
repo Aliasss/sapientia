@@ -111,12 +111,15 @@ body {
     text-align: center;
     width: 100%;
     max-width: 600px;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .credential-item:hover {
     background: #1a1a1a;
     border-color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .credential-item .icon {
@@ -220,6 +223,7 @@ body {
     gap: 30px;
 }
 
+/* Remove clickable style from topic-card */
 .topic-card {
     background: #111111;
     padding: 50px;
@@ -227,11 +231,14 @@ body {
     transition: all 0.3s ease;
     width: 100%;
     max-width: 800px;
+    cursor: default;
 }
 
 .topic-card:hover {
     background: #1a1a1a;
     border-color: #ffffff;
+    transform: none;
+    box-shadow: none;
 }
 
 .topic-card .icon {

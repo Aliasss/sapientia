@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Hero section card click events
+    const originCard = document.querySelector('.credential-item:nth-child(1)');
+    const depthCard = document.querySelector('.credential-item:nth-child(2)');
+    const extensionCard = document.querySelector('.credential-item:nth-child(3)');
+
+    if (originCard) {
+        originCard.addEventListener('click', function() {
+            window.location.href = 'content/origin.html';
+        });
+    }
+
+    if (depthCard) {
+        depthCard.addEventListener('click', function() {
+            window.location.href = 'content/depth.html';
+        });
+    }
+
+    if (extensionCard) {
+        extensionCard.addEventListener('click', function() {
+            window.location.href = 'content/extension.html';
+        });
+    }
+
+    // Content structure cards click events removed
+
     // Newsletter subscription
     const newsletterForm = document.querySelector('.newsletter-form');
     const emailInput = document.querySelector('.newsletter-input');
