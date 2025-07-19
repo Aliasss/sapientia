@@ -17,7 +17,27 @@ body {
     padding: 0 20px;
 }
 
-/* Header */
+/* 상단 인증 버튼 영역 */
+.top-auth-bar {
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #333333;
+    padding: 10px 0;
+}
+
+.top-auth-content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.top-auth-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 헤더 중앙 정렬 */
 .header {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     padding: 80px 0;
@@ -45,6 +65,10 @@ body {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0px); }
+}
+
+.header-content {
+    text-align: center;
 }
 
 .header h1 {
@@ -562,4 +586,31 @@ body {
     .journal-section p {
         font-size: 1rem;
     }
+} 
+
+/* 인증 버튼 스타일 */
+auth-button {
+    display: inline-block;
+}
+
+/* 임시 인증 버튼 스타일 */
+.auth-button-placeholder {
+    display: inline-block;
+    background-color: #4a4a5a;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 카드 클릭 스타일 */
+.credential-item {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.credential-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 } 

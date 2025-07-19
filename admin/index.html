@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 | SAPIENTIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h1>SAPIENTIA</h1>
+                <p>관리자 페이지</p>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active"><a href="index.html"><span class="icon">📊</span> 대시보드</a></li>
+                    <li><a href="themes.html"><span class="icon">📝</span> 콘텐츠 테마</a></li>
+                    <li><a href="questions.html"><span class="icon">❓</span> 철학적 질문</a></li>
+                    <li><a href="newsletter.html"><span class="icon">📧</span> 뉴스레터</a></li>
+                    <li><a href="../index.html"><span class="icon">🏠</span> 사이트로 돌아가기</a></li>
+                </ul>
+            </nav>
+            <div class="admin-user">
+                <div class="admin-user-avatar">A</div>
+                <div class="admin-user-info">
+                    <p class="admin-user-name">관리자</p>
+                    <button id="logoutBtn" class="admin-logout-btn">로그아웃</button>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="admin-main">
+            <header class="admin-header">
+                <h2>대시보드</h2>
+                <div class="admin-header-actions">
+                    <span id="currentDate"></span>
+                </div>
+            </header>
+            
+            <div class="admin-content">
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <h3>총 사용자</h3>
+                        <p class="admin-stat-number" id="totalUsers">-</p>
+                        <p class="admin-stat-label">등록된 사용자</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <h3>저널 항목</h3>
+                        <p class="admin-stat-number" id="totalJournalEntries">-</p>
+                        <p class="admin-stat-label">작성된 저널</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <h3>뉴스레터 구독</h3>
+                        <p class="admin-stat-number" id="totalSubscribers">-</p>
+                        <p class="admin-stat-label">활성 구독자</p>
+                    </div>
+                    <div class="admin-stat-card">
+                        <h3>콘텐츠 테마</h3>
+                        <p class="admin-stat-number" id="totalThemes">-</p>
+                        <p class="admin-stat-label">발행된 테마</p>
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <div class="admin-section-header">
+                        <h3>최근 활동</h3>
+                    </div>
+                    <div class="admin-table-container">
+                        <table class="admin-table" id="recentActivitiesTable">
+                            <thead>
+                                <tr>
+                                    <th>날짜</th>
+                                    <th>유형</th>
+                                    <th>설명</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" class="admin-table-loading">로딩 중...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <div class="admin-section-header">
+                        <h3>빠른 작업</h3>
+                    </div>
+                    <div class="admin-quick-actions">
+                        <a href="themes.html" class="admin-quick-action">
+                            <span class="admin-quick-action-icon">📝</span>
+                            <span class="admin-quick-action-title">새 콘텐츠 테마</span>
+                        </a>
+                        <a href="questions.html" class="admin-quick-action">
+                            <span class="admin-quick-action-icon">❓</span>
+                            <span class="admin-quick-action-title">새 철학적 질문</span>
+                        </a>
+                        <a href="newsletter.html" class="admin-quick-action">
+                            <span class="admin-quick-action-icon">📧</span>
+                            <span class="admin-quick-action-title">뉴스레터 발송</span>
+                        </a>
+                        <a href="#" class="admin-quick-action" id="syncDataBtn">
+                            <span class="admin-quick-action-icon">🔄</span>
+                            <span class="admin-quick-action-title">데이터 동기화</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html> 

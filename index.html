@@ -10,13 +10,52 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/journal.css">
     <link rel="stylesheet" href="styles/subscription.css">
+    <script type="module">
+        import { AuthButton } from './components/auth/AuthButton.js';
+        import { AuthModal } from './components/auth/AuthModal.js';
+        
+        // 커스텀 엘리먼트 등록 확인
+        if (!customElements.get('auth-button')) {
+            customElements.define('auth-button', AuthButton);
+        }
+        
+        if (!customElements.get('auth-modal')) {
+            customElements.define('auth-modal', AuthModal);
+        }
+    </script>
+    <style>
+        /* 인증 버튼 임시 스타일 */
+        .auth-button-placeholder {
+            background-color: #4a4a5a;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+    <!-- 상단 인증 버튼 영역 -->
+    <div class="top-auth-bar">
+        <div class="container">
+            <div class="top-auth-content">
+                <div class="top-auth-right">
+                    <!-- 임시 인증 버튼 (커스텀 엘리먼트가 로드되지 않을 경우를 대비) -->
+                    <div class="auth-button-placeholder">Sign In</div>
+                    <auth-button></auth-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="header">
         <div class="container">
-            <h1>SAPIENTIA</h1>
-            <p>A Scientia ad Sapientiam</p>
-            <p class="subtitle">A Tool for the Thinking Human</p>
+            <div class="header-content">
+                <h1>SAPIENTIA</h1>
+                <p>A Scientia ad Sapientiam</p>
+                <p class="subtitle">A Tool for the Thinking Human</p>
+            </div>
         </div>
     </div>
 
@@ -27,7 +66,7 @@
             <p>Accumulate thoughts, structure your own philosophy</p>
             
             <div class="credentials">
-                <div class="credential-item">
+                <div class="credential-item" onclick="window.location.href='content/origin.html'">
                     <div class="icon">
                         <svg viewBox="0 0 24 24">
                             <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
@@ -36,7 +75,7 @@
                     <h3>Origin of Thought</h3>
                     <p>Presenting personal inner questions and ontological concerns</p>
                 </div>
-                <div class="credential-item">
+                <div class="credential-item" onclick="window.location.href='content/depth.html'">
                     <div class="icon">
                         <svg viewBox="0 0 24 24">
                             <path d="M22,21H2V3H4V19H6V17H10V19H12V16H16V19H18V17H22V21M16,8A2,2 0 0,1 18,10V15H16V10H14V15H12V10A2,2 0 0,1 14,8H16M10,8V15H8V13H6V15H4V8H6V11H8V8H10Z"/>
@@ -45,7 +84,7 @@
                     <h3>Depth of Thought</h3>
                     <p>Expanding insights from cosmic/spiritual perspectives</p>
                 </div>
-                <div class="credential-item">
+                <div class="credential-item" onclick="window.location.href='content/extension.html'">
                     <div class="icon">
                         <svg viewBox="0 0 24 24">
                             <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
@@ -159,7 +198,7 @@
             <h2>Thought Journal</h2>
             <p>Record your insights, questions, and reflections as you explore the pillars of understanding. Build your own philosophy through a journal structure where personal thoughts accumulate.</p>
             <div class="journal-cta">
-                <button class="btn journal-btn">Open Journal</button>
+                <button class="btn journal-btn" onclick="document.getElementById('journalModal').classList.add('active'); document.body.style.overflow = 'hidden';">Open Journal</button>
                 <p class="journal-note">Your entries are stored locally on your device and remain private.</p>
             </div>
         </div>
@@ -218,7 +257,7 @@
         <div class="journal-container">
             <div class="journal-header">
                 <h2>Thought Journal</h2>
-                <button class="journal-close">&times;</button>
+                <button class="journal-close" onclick="document.getElementById('journalModal').classList.remove('active'); document.body.style.overflow = '';">&times;</button>
             </div>
             <div class="journal-content">
                 <div class="journal-prompt-text" id="journalPrompt">
@@ -314,7 +353,10 @@
         </div>
     </div>
 
-    <script src="scripts/main.js"></script>
+    <!-- 인증 모달 -->
+    <auth-modal></auth-modal>
+
+    <script src="scripts/main.js" type="module"></script>
 </body>
 </html> 
 
