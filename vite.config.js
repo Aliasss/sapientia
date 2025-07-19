@@ -1,36 +1,33 @@
 import { defineConfig } from 'vite';
-import dotenv from 'dotenv';
-
-// .env 파일 로드
-dotenv.config();
+import { resolve } from 'path';
 
 export default defineConfig({
-  server: {
-    port: 3000,
-    open: true,
-  },
+  // 멀티페이지 앱 설정
   build: {
-    outDir: 'dist',
     rollupOptions: {
       input: {
-        main: 'index.html',
-        origin: 'content/origin.html',
-        depth: 'content/depth.html',
-        extension: 'content/extension.html',
-        selfExistence: 'pillars/self-existence.html',
-        natureCosmos: 'pillars/nature-cosmos.html',
-        societyFuture: 'pillars/society-future.html',
-        admin: 'admin/index.html',
-        adminThemes: 'admin/themes.html',
-        adminQuestions: 'admin/questions.html',
-        adminNewsletter: 'admin/newsletter.html',
+        main: resolve(__dirname, 'index.html'),
+        admin: resolve(__dirname, 'admin/index.html'),
       },
     },
+    outDir: 'dist',
   },
-  define: {
-    // 환경 변수를 클라이언트에서 사용할 수 있도록 설정
-    'process.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),
-    'process.env.SUPABASE_ANON_KEY': JSON.stringify(process.env.SUPABASE_ANON_KEY),
-    'process.env.ADMIN_EMAILS': JSON.stringify(process.env.ADMIN_EMAILS),
+  // 환경 변수 접두사 설정
+  envPrefix: 'VITE_',
+  // 정적 파일 서빙 설정
+  server: {
+    port: 3000,
+    strictPort: true,
+    host: true,
   },
+  // 소스맵 생성
+  sourcemap: true,
+  // 기본 경로 설정
+  base: '/',
+  // 에셋 디렉토리
+  assetsDir: 'assets',
+  // 공개 디렉토리
+  publicDir: 'public',
+  // 플러그인
+  plugins: [],
 }); 

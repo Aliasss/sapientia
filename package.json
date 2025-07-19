@@ -4,11 +4,12 @@
   "description": "SAPIENTIA - A Tool for the Thinking Human",
   "main": "index.html",
   "scripts": {
-    "start": "serve",
-    "build": "echo 'No build step required'",
+    "start": "serve dist",
+    "build": "vite build",
     "dev": "vite",
     "supabase:start": "supabase start",
-    "supabase:stop": "supabase stop"
+    "supabase:stop": "supabase stop",
+    "preview": "vite preview"
   },
   "keywords": [
     "philosophy",
