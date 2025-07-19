@@ -49,6 +49,14 @@ export class AuthButton extends HTMLElement {
   }
 
   handleLogin() {
+    // 커스텀 이벤트 발생
+    const event = new CustomEvent('authButtonClick', {
+      bubbles: true,
+      composed: true, // Shadow DOM 경계를 넘어 이벤트 전파
+      detail: { action: 'login' }
+    });
+    this.dispatchEvent(event);
+    
     // 로그인 모달 열기
     const authModal = document.querySelector('auth-modal');
     if (authModal) {

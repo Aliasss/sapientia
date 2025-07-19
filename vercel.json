@@ -16,6 +16,18 @@
       "dest": "/assets/$1"
     },
     {
+      "src": "/auth/callback",
+      "dest": "/auth/callback.html"
+    },
+    {
+      "src": "/auth/reset-password",
+      "dest": "/auth/reset-password.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/admin/index.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }

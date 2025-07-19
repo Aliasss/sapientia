@@ -25,6 +25,40 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
+    // 인증 모달 관련 코드
+    const authModal = document.querySelector('auth-modal');
+    const authButton = document.querySelector('auth-button');
+    const authPlaceholder = document.querySelector('.auth-button-placeholder');
+    
+    // 인증 버튼 클릭 이벤트
+    if (authButton) {
+        authButton.addEventListener('authButtonClick', function(e) {
+            if (authModal) {
+                authModal.open();
+            }
+        });
+    }
+    
+    // 인증 버튼 플레이스홀더 클릭 이벤트 (커스텀 엘리먼트가 로드되지 않았을 경우)
+    if (authPlaceholder) {
+        authPlaceholder.addEventListener('click', function() {
+            if (authModal) {
+                authModal.open();
+            }
+        });
+    }
+    
+    // URL 파라미터 확인
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('auth')) {
+        const authParam = urlParams.get('auth');
+        if (authParam === 'signup' && authModal) {
+            authModal.open('signup'); // 회원가입 모달 열기
+        } else if (authParam === 'login' && authModal) {
+            authModal.open('login'); // 로그인 모달 열기
+        }
+    }
+
     // Newsletter subscription
     const newsletterForm = document.querySelector('.newsletter-form');
     const emailInput = document.querySelector('.newsletter-input');

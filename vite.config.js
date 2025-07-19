@@ -8,6 +8,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         admin: resolve(__dirname, 'admin/index.html'),
+        authCallback: resolve(__dirname, 'auth/callback.html'),
+        resetPassword: resolve(__dirname, 'auth/reset-password.html'),
       },
     },
     outDir: 'dist',

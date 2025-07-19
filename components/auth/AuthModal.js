@@ -16,7 +16,10 @@ export class AuthModal extends HTMLElement {
   }
 
   // 모달 열기
-  open() {
+  open(view = 'login') {
+    // 뷰 설정 후 모달 열기
+    this.currentView = view;
+    this.render();
     this.shadowRoot.querySelector('.auth-modal-overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -81,6 +84,7 @@ export class AuthModal extends HTMLElement {
     const confirmPassword = this.shadowRoot.querySelector('#signup-confirm-password').value;
     const messageEl = this.shadowRoot.querySelector('.auth-message');
     
+    // 입력 검증
     if (!name || !email || !password) {
       messageEl.textContent = '모든 필드를 입력해주세요.';
       messageEl.classList.add('error');
@@ -104,23 +108,35 @@ export class AuthModal extends HTMLElement {
     submitBtn.disabled = true;
     submitBtn.textContent = '가입 중...';
     
-    const { user, error } = await signUp(email, password, { name });
-    
-    if (error) {
-      messageEl.textContent = error.message || '회원가입에 실패했습니다.';
+    try {
+      console.log('회원가입 시도:', email); // 디버깅용 로그 추가
+      const { user, error } = await signUp(email, password, { name });
+      
+      if (error) {
+        console.error('회원가입 에러:', error);
+        messageEl.textContent = error.message || '회원가입에 실패했습니다.';
+        messageEl.classList.add('error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = '가입하기';
+        return;
+      }
+      
+      console.log('회원가입 성공:', user); // 디버깅용 로그 추가
+      
+      // 회원가입 성공
+      messageEl.textContent = '회원가입 성공! 이메일 확인 후 로그인해주세요.';
+      messageEl.classList.remove('error');
+      messageEl.classList.add('success');
+      
+      // 로그인 화면으로 전환
+      setTimeout(() => this.switchView('login'), 2000);
+    } catch (e) {
+      console.error('예상치 못한 에러:', e);
+      messageEl.textContent = '예상치 못한 오류가 발생했습니다.';
       messageEl.classList.add('error');
       submitBtn.disabled = false;
       submitBtn.textContent = '가입하기';
-      return;
     }
-    
-    // 회원가입 성공
-    messageEl.textContent = '회원가입 성공! 이메일 확인 후 로그인해주세요.';
-    messageEl.classList.remove('error');
-    messageEl.classList.add('success');
-    
-    // 로그인 화면으로 전환
-    setTimeout(() => this.switchView('login'), 2000);
   }
 
   // 비밀번호 재설정 처리
@@ -162,7 +178,22 @@ export class AuthModal extends HTMLElement {
 
   // 소셜 로그인 처리
   async handleSocialLogin(provider) {
-    await signInWithSocial(provider);
+    try {
+      console.log(`소셜 로그인 시도: ${provider}`); // 디버깅용 로그 추가
+      const { data, error } = await signInWithSocial(provider);
+      
+      if (error) {
+        console.error(`${provider} 로그인 에러:`, error);
+        const messageEl = this.shadowRoot.querySelector('.auth-message');
+        messageEl.textContent = `${provider} 로그인에 실패했습니다.`;
+        messageEl.classList.add('error');
+      }
+    } catch (error) {
+      console.error(`${provider} 로그인 예상치 못한 에러:`, error);
+      const messageEl = this.shadowRoot.querySelector('.auth-message');
+      messageEl.textContent = `${provider} 로그인 중 오류가 발생했습니다.`;
+      messageEl.classList.add('error');
+    }
   }
 
   render() {
@@ -496,18 +527,30 @@ export class AuthModal extends HTMLElement {
     switch (this.currentView) {
       case 'login':
         this.shadowRoot.querySelector('#login-form').addEventListener('submit', (e) => this.handleLogin(e));
-        this.shadowRoot.querySelector('.signup-link').addEventListener('click', () => this.switchView('signup'));
-        this.shadowRoot.querySelector('.forgot-password-link').addEventListener('click', () => this.switchView('forgot-password'));
+        this.shadowRoot.querySelector('.signup-link').addEventListener('click', (e) => {
+          e.preventDefault(); // 기본 동작 방지
+          this.switchView('signup');
+        });
+        this.shadowRoot.querySelector('.forgot-password-link').addEventListener('click', (e) => {
+          e.preventDefault(); // 기본 동작 방지
+          this.switchView('forgot-password');
+        });
         this.shadowRoot.querySelector('.google-login').addEventListener('click', () => this.handleSocialLogin('google'));
         this.shadowRoot.querySelector('.github-login').addEventListener('click', () => this.handleSocialLogin('github'));
         break;
       case 'signup':
         this.shadowRoot.querySelector('#signup-form').addEventListener('submit', (e) => this.handleSignup(e));
-        this.shadowRoot.querySelector('.login-link').addEventListener('click', () => this.switchView('login'));
+        this.shadowRoot.querySelector('.login-link').addEventListener('click', (e) => {
+          e.preventDefault(); // 기본 동작 방지
+          this.switchView('login');
+        });
         break;
       case 'forgot-password':
         this.shadowRoot.querySelector('#reset-password-form').addEventListener('submit', (e) => this.handleResetPassword(e));
-        this.shadowRoot.querySelector('.login-link').addEventListener('click', () => this.switchView('login'));
+        this.shadowRoot.querySelector('.login-link').addEventListener('click', (e) => {
+          e.preventDefault(); // 기본 동작 방지
+          this.switchView('login');
+        });
         break;
     }
   }
