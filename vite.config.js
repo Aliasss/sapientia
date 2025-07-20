@@ -10,6 +10,14 @@ export default defineConfig({
         admin: resolve(__dirname, 'admin/index.html'),
         authCallback: resolve(__dirname, 'auth/callback.html'),
         resetPassword: resolve(__dirname, 'auth/reset-password.html'),
+        // content 디렉토리의 HTML 파일들 추가
+        origin: resolve(__dirname, 'content/origin.html'),
+        depth: resolve(__dirname, 'content/depth.html'),
+        extension: resolve(__dirname, 'content/extension.html'),
+        // pillars 디렉토리의 HTML 파일들 추가
+        selfExistence: resolve(__dirname, 'pillars/self-existence.html'),
+        natureCosmos: resolve(__dirname, 'pillars/nature-cosmos.html'),
+        societyFuture: resolve(__dirname, 'pillars/society-future.html'),
       },
     },
     outDir: 'dist',

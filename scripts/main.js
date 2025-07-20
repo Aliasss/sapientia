@@ -3,27 +3,52 @@ import { subscribeToNewsletter } from '../utils/email.js';
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Hero section card click events
-    const originCard = document.querySelector('.credential-item:nth-child(1)');
-    const depthCard = document.querySelector('.credential-item:nth-child(2)');
-    const extensionCard = document.querySelector('.credential-item:nth-child(3)');
-
-    if (originCard) {
-        originCard.addEventListener('click', function() {
-            window.location.href = 'content/origin.html';
+    const credentialItems = document.querySelectorAll('.credential-item');
+    
+    // 인라인 onclick 속성 대신 JavaScript로 이벤트 핸들러 추가
+    credentialItems.forEach(card => {
+        card.addEventListener('click', function() {
+            // 카드의 인덱스에 따라 다른 페이지로 이동 (절대 경로 사용)
+            const index = Array.from(credentialItems).indexOf(this);
+            switch(index) {
+                case 0:
+                    window.location.href = '/content/origin.html';
+                    break;
+                case 1:
+                    window.location.href = '/content/depth.html';
+                    break;
+                case 2:
+                    window.location.href = '/content/extension.html';
+                    break;
+            }
         });
-    }
+    });
 
-    if (depthCard) {
-        depthCard.addEventListener('click', function() {
-            window.location.href = 'content/depth.html';
+    // 제품 카드 클릭 이벤트
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // 버튼 클릭은 제외 (버튼 클릭은 기본 동작 유지)
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                return;
+            }
+            
+            // 카드 내부의 버튼 찾기
+            const btn = this.querySelector('.btn');
+            if (btn) {
+                // 버튼의 href 속성 가져오기
+                const href = btn.getAttribute('href');
+                if (href) {
+                    // href가 상대 경로인 경우 절대 경로로 변환
+                    if (href.startsWith('pillars/')) {
+                        window.location.href = '/' + href;
+                    } else {
+                        window.location.href = href;
+                    }
+                }
+            }
         });
-    }
-
-    if (extensionCard) {
-        extensionCard.addEventListener('click', function() {
-            window.location.href = 'content/extension.html';
-        });
-    }
+    });
 
     // 인증 모달 관련 코드
     const authModal = document.querySelector('auth-modal');

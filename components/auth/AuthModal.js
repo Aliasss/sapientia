@@ -9,6 +9,7 @@ export class AuthModal extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.currentView = 'login'; // login, signup, forgot-password
+    this.isOpen = false; // 모달 열림 상태 추적
   }
 
   connectedCallback() {
@@ -22,18 +23,134 @@ export class AuthModal extends HTMLElement {
     this.render();
     this.shadowRoot.querySelector('.auth-modal-overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
+    this.isOpen = true; // 모달 열림 상태 설정
   }
 
   // 모달 닫기
   close() {
     this.shadowRoot.querySelector('.auth-modal-overlay').classList.remove('active');
     document.body.style.overflow = '';
+    this.isOpen = false; // 모달 닫힘 상태 설정
   }
 
   // 뷰 전환
   switchView(view) {
     this.currentView = view;
-    this.render();
+    this.updateContent(); // render() 대신 updateContent() 호출
+  }
+
+  // 모달 내용만 업데이트
+  updateContent() {
+    // 현재 뷰에 따라 제목과 폼 선택
+    let title, form;
+    switch (this.currentView) {
+      case 'signup':
+        title = '회원가입';
+        form = this.getSignupForm();
+        break;
+      case 'forgot-password':
+        title = '비밀번호 재설정';
+        form = this.getResetPasswordForm();
+        break;
+      default:
+        title = '로그인';
+        form = this.getLoginForm();
+    }
+
+    // 제목 업데이트
+    const titleEl = this.shadowRoot.querySelector('.auth-modal-title');
+    if (titleEl) {
+      titleEl.textContent = title;
+    }
+
+    // 폼 내용 업데이트
+    const bodyEl = this.shadowRoot.querySelector('.auth-modal-body');
+    if (bodyEl) {
+      bodyEl.innerHTML = form;
+    }
+
+    // 이벤트 리스너 다시 추가
+    this.addEventListeners();
+  }
+
+  // 로그인 폼 HTML 반환
+  getLoginForm() {
+    return `
+      <form id="login-form" class="auth-form">
+        <div class="auth-message"></div>
+        <div class="form-group">
+          <label for="login-email" class="form-label">이메일</label>
+          <input type="email" id="login-email" class="form-input" placeholder="이메일 주소" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password" class="form-label">비밀번호</label>
+          <input type="password" id="login-password" class="form-input" placeholder="비밀번호" required>
+        </div>
+        <button type="submit" id="login-submit" class="auth-submit">로그인</button>
+        
+        <div class="auth-links">
+          <span class="auth-link forgot-password-link">비밀번호 찾기</span>
+          <span class="auth-link signup-link">회원가입</span>
+        </div>
+        
+        <div class="auth-divider">
+          <span>또는</span>
+        </div>
+        
+        <div class="social-buttons">
+          <button type="button" class="social-button google-login">Google</button>
+          <button type="button" class="social-button github-login">GitHub</button>
+        </div>
+      </form>
+    `;
+  }
+
+  // 회원가입 폼 HTML 반환
+  getSignupForm() {
+    return `
+      <form id="signup-form" class="auth-form">
+        <div class="auth-message"></div>
+        <div class="form-group">
+          <label for="signup-name" class="form-label">이름</label>
+          <input type="text" id="signup-name" class="form-input" placeholder="이름" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-email" class="form-label">이메일</label>
+          <input type="email" id="signup-email" class="form-input" placeholder="이메일 주소" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-password" class="form-label">비밀번호</label>
+          <input type="password" id="signup-password" class="form-input" placeholder="비밀번호 (6자 이상)" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-confirm-password" class="form-label">비밀번호 확인</label>
+          <input type="password" id="signup-confirm-password" class="form-input" placeholder="비밀번호 확인" required>
+        </div>
+        <button type="submit" id="signup-submit" class="auth-submit">가입하기</button>
+        
+        <div class="auth-links">
+          <span class="auth-link login-link">이미 계정이 있으신가요? 로그인</span>
+        </div>
+      </form>
+    `;
+  }
+
+  // 비밀번호 재설정 폼 HTML 반환
+  getResetPasswordForm() {
+    return `
+      <form id="reset-password-form" class="auth-form">
+        <div class="auth-message"></div>
+        <div class="form-group">
+          <label for="reset-email" class="form-label">이메일</label>
+          <input type="email" id="reset-email" class="form-input" placeholder="이메일 주소" required>
+        </div>
+        <button type="submit" id="reset-submit" class="auth-submit">재설정 링크 전송</button>
+        
+        <div class="auth-links">
+          <span class="auth-link login-link">로그인으로 돌아가기</span>
+        </div>
+      </form>
+    `;
   }
 
   // 로그인 처리
@@ -407,94 +524,20 @@ export class AuthModal extends HTMLElement {
       }
     `;
 
-    // 로그인 폼
-    const loginForm = `
-      <form id="login-form" class="auth-form">
-        <div class="auth-message"></div>
-        <div class="form-group">
-          <label for="login-email" class="form-label">이메일</label>
-          <input type="email" id="login-email" class="form-input" placeholder="이메일 주소" required>
-        </div>
-        <div class="form-group">
-          <label for="login-password" class="form-label">비밀번호</label>
-          <input type="password" id="login-password" class="form-input" placeholder="비밀번호" required>
-        </div>
-        <button type="submit" id="login-submit" class="auth-submit">로그인</button>
-        
-        <div class="auth-links">
-          <span class="auth-link forgot-password-link">비밀번호 찾기</span>
-          <span class="auth-link signup-link">회원가입</span>
-        </div>
-        
-        <div class="auth-divider">
-          <span>또는</span>
-        </div>
-        
-        <div class="social-buttons">
-          <button type="button" class="social-button google-login">Google</button>
-          <button type="button" class="social-button github-login">GitHub</button>
-        </div>
-      </form>
-    `;
-
-    // 회원가입 폼
-    const signupForm = `
-      <form id="signup-form" class="auth-form">
-        <div class="auth-message"></div>
-        <div class="form-group">
-          <label for="signup-name" class="form-label">이름</label>
-          <input type="text" id="signup-name" class="form-input" placeholder="이름" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-email" class="form-label">이메일</label>
-          <input type="email" id="signup-email" class="form-input" placeholder="이메일 주소" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-password" class="form-label">비밀번호</label>
-          <input type="password" id="signup-password" class="form-input" placeholder="비밀번호 (6자 이상)" required>
-        </div>
-        <div class="form-group">
-          <label for="signup-confirm-password" class="form-label">비밀번호 확인</label>
-          <input type="password" id="signup-confirm-password" class="form-input" placeholder="비밀번호 확인" required>
-        </div>
-        <button type="submit" id="signup-submit" class="auth-submit">가입하기</button>
-        
-        <div class="auth-links">
-          <span class="auth-link login-link">이미 계정이 있으신가요? 로그인</span>
-        </div>
-      </form>
-    `;
-
-    // 비밀번호 재설정 폼
-    const resetPasswordForm = `
-      <form id="reset-password-form" class="auth-form">
-        <div class="auth-message"></div>
-        <div class="form-group">
-          <label for="reset-email" class="form-label">이메일</label>
-          <input type="email" id="reset-email" class="form-input" placeholder="이메일 주소" required>
-        </div>
-        <button type="submit" id="reset-submit" class="auth-submit">재설정 링크 전송</button>
-        
-        <div class="auth-links">
-          <span class="auth-link login-link">로그인으로 돌아가기</span>
-        </div>
-      </form>
-    `;
-
     // 현재 뷰에 따라 제목과 폼 선택
     let title, form;
     switch (this.currentView) {
       case 'signup':
         title = '회원가입';
-        form = signupForm;
+        form = this.getSignupForm();
         break;
       case 'forgot-password':
         title = '비밀번호 재설정';
-        form = resetPasswordForm;
+        form = this.getResetPasswordForm();
         break;
       default:
         title = '로그인';
-        form = loginForm;
+        form = this.getLoginForm();
     }
 
     this.shadowRoot.innerHTML = `
@@ -514,6 +557,12 @@ export class AuthModal extends HTMLElement {
 
     // 이벤트 리스너 추가
     this.addEventListeners();
+    
+    // 이전에 열려있었다면 다시 열기
+    if (this.isOpen) {
+      this.shadowRoot.querySelector('.auth-modal-overlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   addEventListeners() {

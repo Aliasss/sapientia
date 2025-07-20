@@ -28,6 +28,30 @@
       "dest": "/admin/index.html"
     },
     {
+      "src": "/content/origin",
+      "dest": "/content/origin.html"
+    },
+    {
+      "src": "/content/depth",
+      "dest": "/content/depth.html"
+    },
+    {
+      "src": "/content/extension",
+      "dest": "/content/extension.html"
+    },
+    {
+      "src": "/pillars/self-existence",
+      "dest": "/pillars/self-existence.html"
+    },
+    {
+      "src": "/pillars/nature-cosmos",
+      "dest": "/pillars/nature-cosmos.html"
+    },
+    {
+      "src": "/pillars/society-future",
+      "dest": "/pillars/society-future.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
