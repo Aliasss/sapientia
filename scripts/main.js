@@ -8,17 +8,18 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 인라인 onclick 속성 대신 JavaScript로 이벤트 핸들러 추가
     credentialItems.forEach(card => {
         card.addEventListener('click', function() {
-            // 카드의 인덱스에 따라 다른 페이지로 이동 (절대 경로 사용)
+            // 카드의 인덱스에 따라 다른 페이지로 이동 (완전한 URL 사용)
             const index = Array.from(credentialItems).indexOf(this);
+            const baseUrl = window.location.origin; // 현재 도메인 가져오기
             switch(index) {
                 case 0:
-                    window.location.href = '/content/origin.html';
+                    window.location.href = baseUrl + '/content/origin.html';
                     break;
                 case 1:
-                    window.location.href = '/content/depth.html';
+                    window.location.href = baseUrl + '/content/depth.html';
                     break;
                 case 2:
-                    window.location.href = '/content/extension.html';
+                    window.location.href = baseUrl + '/content/extension.html';
                     break;
             }
         });
@@ -39,7 +40,16 @@ document.addEventListener('DOMContentLoaded', async function() {
                 // 버튼의 href 속성 가져오기
                 const href = btn.getAttribute('href');
                 if (href) {
-                    window.location.href = href;  // href 그대로 사용
+                    // href가 상대 경로인 경우 절대 경로로 변환
+                    if (href.startsWith('pillars/')) {
+                        window.location.href = '/' + href;  // 절대 경로로 변환
+                    } else if (href.includes('pillars/')) {
+                        // ../pillars/ 형태의 경로를 /pillars/로 변환
+                        const pillarsIndex = href.indexOf('pillars/');
+                        window.location.href = '/' + href.substring(pillarsIndex);  // 절대 경로로 변환
+                    } else {
+                        window.location.href = href;
+                    }
                 }
             }
         });
