@@ -39,12 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 // 버튼의 href 속성 가져오기
                 const href = btn.getAttribute('href');
                 if (href) {
-                    // href가 상대 경로인 경우 절대 경로로 변환
-                    if (href.startsWith('pillars/')) {
-                        window.location.href = '/' + href;
-                    } else {
-                        window.location.href = href;
-                    }
+                    window.location.href = href;  // href 그대로 사용
                 }
             }
         });
