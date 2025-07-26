@@ -6,51 +6,58 @@ document.addEventListener('DOMContentLoaded', async function() {
     const credentialItems = document.querySelectorAll('.credential-item');
     
     // 인라인 onclick 속성 대신 JavaScript로 이벤트 핸들러 추가
-    credentialItems.forEach(card => {
+    credentialItems.forEach((card, index) => {
         card.addEventListener('click', function() {
-            // 카드의 인덱스에 따라 다른 페이지로 이동 (완전한 URL 사용)
-            const index = Array.from(credentialItems).indexOf(this);
-            const baseUrl = window.location.origin; // 현재 도메인 가져오기
+            console.log(`카드 ${index} 클릭됨`); // 디버깅용
+            
+            // 카드의 인덱스에 따라 다른 페이지로 이동 (Vercel 배포 고려한 절대 경로)
             switch(index) {
                 case 0:
-                    window.location.href = baseUrl + '/content/origin.html';
+                    console.log('Origin으로 이동');
+                    window.location.href = '/content/origin';
                     break;
                 case 1:
-                    window.location.href = baseUrl + '/content/depth.html';
+                    console.log('Depth로 이동');
+                    window.location.href = '/content/depth';
                     break;
                 case 2:
-                    window.location.href = baseUrl + '/content/extension.html';
+                    console.log('Extension으로 이동');
+                    window.location.href = '/content/extension';
                     break;
+                default:
+                    console.log('알 수 없는 카드 인덱스:', index);
             }
         });
     });
 
     // 제품 카드 클릭 이벤트
     const productCards = document.querySelectorAll('.product-card');
-    productCards.forEach(card => {
+    productCards.forEach((card, index) => {
         card.addEventListener('click', function(e) {
             // 버튼 클릭은 제외 (버튼 클릭은 기본 동작 유지)
             if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                console.log('버튼 클릭 감지 - 기본 동작 유지');
                 return;
             }
             
-            // 카드 내부의 버튼 찾기
-            const btn = this.querySelector('.btn');
-            if (btn) {
-                // 버튼의 href 속성 가져오기
-                const href = btn.getAttribute('href');
-                if (href) {
-                    // href가 상대 경로인 경우 절대 경로로 변환
-                    if (href.startsWith('pillars/')) {
-                        window.location.href = '/' + href;  // 절대 경로로 변환
-                    } else if (href.includes('pillars/')) {
-                        // ../pillars/ 형태의 경로를 /pillars/로 변환
-                        const pillarsIndex = href.indexOf('pillars/');
-                        window.location.href = '/' + href.substring(pillarsIndex);  // 절대 경로로 변환
-                    } else {
-                        window.location.href = href;
-                    }
-                }
+            console.log(`제품 카드 ${index} 클릭됨`); // 디버깅용
+            
+            // 카드의 인덱스에 따라 다른 페이지로 이동 (Vercel 배포 고려한 절대 경로)
+            switch(index) {
+                case 0:
+                    console.log('Self & Existence로 이동');
+                    window.location.href = '/pillars/self-existence.html';  // HTML 확장자 추가
+                    break;
+                case 1:
+                    console.log('Nature & Cosmos로 이동');
+                    window.location.href = '/pillars/nature-cosmos.html';  // HTML 확장자 추가
+                    break;
+                case 2:
+                    console.log('Society & Future로 이동');
+                    window.location.href = '/pillars/society-future.html';  // HTML 확장자 추가
+                    break;
+                default:
+                    console.log('알 수 없는 제품 카드 인덱스:', index);
             }
         });
     });
