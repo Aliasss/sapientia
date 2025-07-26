@@ -34,27 +34,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     const productCards = document.querySelectorAll('.product-card');
     productCards.forEach((card, index) => {
         card.addEventListener('click', function(e) {
-            // 버튼 클릭은 제외 (버튼 클릭은 기본 동작 유지)
-            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-                console.log('버튼 클릭 감지 - 기본 동작 유지');
+            // Explore 버튼 클릭은 무시
+            if (e.target.closest('.btn')) {
+                console.log('Explore 버튼 클릭 → 카드 클릭 이벤트 무시');
                 return;
             }
             
             console.log(`제품 카드 ${index} 클릭됨`); // 디버깅용
             
-            // 카드의 인덱스에 따라 다른 페이지로 이동 (Vercel 배포 고려한 절대 경로)
+            // 카드의 인덱스에 따라 다른 페이지로 이동 (public 폴더 구조에 맞게 수정)
             switch(index) {
                 case 0:
                     console.log('Self & Existence로 이동');
-                    window.location.href = '/pillars/self-existence.html';  // HTML 확장자 추가
+                    window.location.href = '/pillars/self-existence.html';
                     break;
                 case 1:
                     console.log('Nature & Cosmos로 이동');
-                    window.location.href = '/pillars/nature-cosmos.html';  // HTML 확장자 추가
+                    window.location.href = '/pillars/nature-cosmos.html';
                     break;
                 case 2:
                     console.log('Society & Future로 이동');
-                    window.location.href = '/pillars/society-future.html';  // HTML 확장자 추가
+                    window.location.href = '/pillars/society-future.html';
                     break;
                 default:
                     console.log('알 수 없는 제품 카드 인덱스:', index);
@@ -347,4 +347,4 @@ function showMessage(message, type) {
             }
         }, 300);
     }, 3000);
-} 
+}
