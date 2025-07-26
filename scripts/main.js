@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     const productCards = document.querySelectorAll('.product-card');
     productCards.forEach((card, index) => {
         card.addEventListener('click', function(e) {
-            // Explore 버튼 클릭은 무시
+            // Explore 버튼 클릭 시 기본 이동 허용
             if (e.target.closest('.btn')) {
-                console.log('Explore 버튼 클릭 → 카드 클릭 이벤트 무시');
-                return;
+                console.log('Explore 버튼 클릭 → 기본 이동 허용');
+                // return; // 기본 <a href> 동작을 허용하기 위해 제거
             }
             
             console.log(`제품 카드 ${index} 클릭됨`); // 디버깅용
